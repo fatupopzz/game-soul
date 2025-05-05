@@ -1,4 +1,4 @@
-# Game Soul - Sistema de Recomendaciones Emocional 🎮✨
+# Game Soul - Sistema de Recomendaciones Emocional 
 
 **Universidad del Valle de Guatemala - CC2016**  
 **Algoritmos y Estructura de Datos - Semestre I 2025**
