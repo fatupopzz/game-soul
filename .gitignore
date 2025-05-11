@@ -1,0 +1,27 @@
+# Node
+node_modules/
+npm-debug.log
+dist/
+build/
+.env
+.env.local
+
+# Neo4j
+*.db/
+
+# Docker
+.dockerignore
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Logs
+logs/
+*.log
