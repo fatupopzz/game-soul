@@ -1,27 +1,44 @@
-# Node
-node_modules/
-npm-debug.log
-dist/
-build/
+# Archivos generados por Rust
+/target/
+Cargo.lock
+
+# Archivos de configuración locales
 .env
 .env.local
+.env.development.local
+.env.test.local
+.env.production.local
 
-# Neo4j
-*.db/
+# Archivos de respaldo generados por editores
+**/*.rs.bk
+**/*.swp
+**/*.swo
 
-# Docker
-.dockerignore
+# Archivos de caché de IDEs
+.idea/
+.vscode/
+*.iml
+.DS_Store
 
-# OS
+# Archivos de logs
+*.log
+logs/
+
+# Directorios de dependencias
+node_modules/
+
+# Archivos compilados
+**/*.rs.bk
+*.pdb
+*.exe
+*.dll
+*.so
+*.dylib
+
+# Archivos específicos de sistema operativo
 .DS_Store
 Thumbs.db
 
-# IDE
-.idea/
-.vscode/
-*.swp
-*.swo
-
-# Logs
-logs/
-*.log
+# Archivos temporales
+tmp/
+temp/
