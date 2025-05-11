@@ -1,0 +1,13 @@
+/Users/fatu/Documents/game-soul/game-soul-backend/target/debug/deps/libyoke-615922e669d9c52d.rmeta: /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/yoke-0.8.0/src/lib.rs /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/yoke-0.8.0/src/cartable_ptr.rs /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/yoke-0.8.0/src/either.rs /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/yoke-0.8.0/src/erased.rs /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/yoke-0.8.0/src/kinda_sorta_dangling.rs /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/yoke-0.8.0/src/macro_impls.rs /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/yoke-0.8.0/src/yoke.rs /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/yoke-0.8.0/src/yokeable.rs /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/yoke-0.8.0/src/zero_from.rs
+
+/Users/fatu/Documents/game-soul/game-soul-backend/target/debug/deps/yoke-615922e669d9c52d.d: /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/yoke-0.8.0/src/lib.rs /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/yoke-0.8.0/src/cartable_ptr.rs /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/yoke-0.8.0/src/either.rs /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/yoke-0.8.0/src/erased.rs /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/yoke-0.8.0/src/kinda_sorta_dangling.rs /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/yoke-0.8.0/src/macro_impls.rs /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/yoke-0.8.0/src/yoke.rs /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/yoke-0.8.0/src/yokeable.rs /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/yoke-0.8.0/src/zero_from.rs
+
+/Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/yoke-0.8.0/src/lib.rs:
+/Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/yoke-0.8.0/src/cartable_ptr.rs:
+/Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/yoke-0.8.0/src/either.rs:
+/Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/yoke-0.8.0/src/erased.rs:
+/Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/yoke-0.8.0/src/kinda_sorta_dangling.rs:
+/Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/yoke-0.8.0/src/macro_impls.rs:
+/Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/yoke-0.8.0/src/yoke.rs:
+/Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/yoke-0.8.0/src/yokeable.rs:
+/Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/yoke-0.8.0/src/zero_from.rs:

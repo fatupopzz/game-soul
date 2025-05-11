@@ -1,0 +1,11 @@
+/Users/fatu/Documents/game-soul/game-soul-backend/target/debug/deps/libyaml_rust2-e4ba3a5e9a517d56.rmeta: /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/yaml-rust2-0.10.1/src/lib.rs /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/yaml-rust2-0.10.1/src/char_traits.rs /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/yaml-rust2-0.10.1/src/debug.rs /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/yaml-rust2-0.10.1/src/emitter.rs /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/yaml-rust2-0.10.1/src/parser.rs /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/yaml-rust2-0.10.1/src/scanner.rs /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/yaml-rust2-0.10.1/src/yaml.rs
+
+/Users/fatu/Documents/game-soul/game-soul-backend/target/debug/deps/yaml_rust2-e4ba3a5e9a517d56.d: /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/yaml-rust2-0.10.1/src/lib.rs /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/yaml-rust2-0.10.1/src/char_traits.rs /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/yaml-rust2-0.10.1/src/debug.rs /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/yaml-rust2-0.10.1/src/emitter.rs /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/yaml-rust2-0.10.1/src/parser.rs /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/yaml-rust2-0.10.1/src/scanner.rs /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/yaml-rust2-0.10.1/src/yaml.rs
+
+/Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/yaml-rust2-0.10.1/src/lib.rs:
+/Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/yaml-rust2-0.10.1/src/char_traits.rs:
+/Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/yaml-rust2-0.10.1/src/debug.rs:
+/Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/yaml-rust2-0.10.1/src/emitter.rs:
+/Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/yaml-rust2-0.10.1/src/parser.rs:
+/Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/yaml-rust2-0.10.1/src/scanner.rs:
+/Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/yaml-rust2-0.10.1/src/yaml.rs:
