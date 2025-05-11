@@ -22,7 +22,6 @@ database/
 │
 ├── setup.sh               # Script de configuración para Unix/Linux/macOS
 ├── setup.ps1              # Script de configuración para Windows (PowerShell)
-├── setup.bat              # Script de configuración alternativo para Windows
 └── README.md              # Este archivo
 ```
 
