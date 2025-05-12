@@ -1,7 +1,7 @@
-# Dockerfile para Game Soul Backend (Rust)
+# Dockerfile para Game Soul Backend en rust 
 
 # Primera etapa: Compilación
-FROM rust:1.70-slim-bullseye as builder
+FROM rust:latest as builder
 
 # Establecer directorio de trabajo
 WORKDIR /app
@@ -11,24 +11,14 @@ RUN apt-get update && \
     apt-get install -y pkg-config libssl-dev && \
     rm -rf /var/lib/apt/lists/*
 
-# Copiar archivos de manifiesto de Cargo
-COPY Cargo.toml Cargo.lock* ./
+# Copiar todo el código fuente
+COPY . .
 
-# Crear una estructura de directorios mínima para aprovechar la caché de capas de Docker
-RUN mkdir -p src && \
-    echo "fn main() {println!(\"dummy\")}" > src/main.rs && \
-    cargo build --release && \
-    rm -rf src
-
-# Copiar el código fuente real
-COPY src/ src/
-
-# Forzar la recompilación con el código real
-RUN touch src/main.rs && \
-    cargo build --release
+# Compilar el proyecto
+RUN cargo build --release
 
 # Segunda etapa: Ejecutable final
-FROM debian:bullseye-slim
+FROM ubuntu:22.04
 
 # Instalar dependencias de tiempo de ejecución
 RUN apt-get update && \
@@ -43,8 +33,16 @@ WORKDIR /app
 # Copiar el ejecutable compilado desde la etapa de construcción
 COPY --from=builder /app/target/release/game-soul-backend .
 
-# Copiar archivos de configuración
-COPY .env.example .env
+# Crear un archivo .env básico
+RUN echo "HOST=0.0.0.0\n\
+PORT=3001\n\
+ENVIRONMENT=development\n\
+NEO4J_URI=bolt://neo4j:7687\n\
+NEO4J_USER=neo4j\n\
+NEO4J_PASSWORD=password\n\
+JWT_SECRET=development_jwt_secret_key\n\
+JWT_EXPIRATION=86400\n\
+FRONTEND_URL=http://localhost:3000" > .env
 
 # Cambiar la propiedad de los archivos al usuario no privilegiado
 RUN chown -R gameuser:gameuser /app

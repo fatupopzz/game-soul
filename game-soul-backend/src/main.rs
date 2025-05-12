@@ -7,10 +7,9 @@
 //--------------------------------------------------
 
 
-use actix_web::{App, HttpServer, web};
+use actix_web::{App, HttpServer, web, middleware::Logger};
 use dotenv::dotenv;
 use log::info;
-use actix_web::middleware::Logger;
 
 mod config;
 mod db;
@@ -59,7 +58,7 @@ async fn main() -> std::io::Result<()> {
     HttpServer::new(move || {
         App::new()
             // Middleware para logging de requests
-            .wrap(middleware::Logger::default())
+            .wrap(Logger::default())
             // Middleware para CORS
             .wrap(app_middleware::cors::cors())
             // Middleware para métricas

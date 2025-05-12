@@ -1,3 +1,13 @@
+//--------------------------------------------------------------------------
+// Este archivo contiene las consultas relacionadas con el perfil emocional
+// de los usuarios en la base de datos Neo4j.
+// Estas consultas permiten guardar y recuperar el perfil emocional
+// de un usuario, así como verificar la existencia de un usuario en la base de datos.
+// Hace que casi me mate para poder convertir toda la mierda en string :)
+//--------------------------------------------------------------------------
+
+
+
 use anyhow::{Context, Result};
 use neo4rs::query;
 use log::info;
@@ -33,8 +43,8 @@ pub async fn save_emotional_profile(
     
     db.execute(
         query(emotion_query)
-            .param("user_id", &profile.user_id)
-            .param("emotion_type", &profile.dominant_emotion)
+            .param("user_id", profile.user_id.as_str())
+            .param("emotion_type", profile.dominant_emotion.as_str())
     ).await
     .context("Error al guardar estado emocional dominante")?;
     
@@ -52,8 +62,8 @@ pub async fn save_emotional_profile(
             
             db.execute(
                 query(resonance_query)
-                    .param("user_id", &profile.user_id)
-                    .param("emotion_type", emotion)
+                    .param("user_id", profile.user_id.as_str())
+                    .param("emotion_type", emotion.as_str())
                     .param("weight", *weight)
             ).await
             .context(format!("Error al guardar resonancia con emoción: {}", emotion))?;
@@ -73,7 +83,7 @@ pub async fn save_emotional_profile(
     
     db.execute(
         query(time_query)
-            .param("user_id", &profile.user_id)
+            .param("user_id", profile.user_id.as_str())
             .param("range_name", time_range)
     ).await
     .context("Error al guardar preferencia de tiempo")?;
@@ -104,8 +114,8 @@ pub async fn get_user_emotional_profile(
     .context("Error al consultar perfil emocional")?;
     
     if let Ok(Some(row)) = result.next().await {
-        let dominant_emotion: Option<String> = row.get("dominant_emotion");
-        let time_range_name: Option<String> = row.get("time_range_name");
+        let dominant_emotion: Option<String> = row.get("dominant_emotion").unwrap_or(None);
+        let time_range_name: Option<String> = row.get("time_range_name").unwrap_or(None);
         
         if dominant_emotion.is_none() {
             info!("No se encontró perfil emocional para el usuario: {}", user_id);

@@ -1,0 +1,11 @@
+/Users/fatu/Documents/game-soul/game-soul-backend/target/debug/deps/libpest_generator-420e61cc2e615c23.rmeta: /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/pest_generator-2.8.0/src/lib.rs /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/pest_generator-2.8.0/src/macros.rs /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/pest_generator-2.8.0/src/docs.rs /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/pest_generator-2.8.0/src/generator.rs /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/pest_generator-2.8.0/src/parse_derive.rs
+
+/Users/fatu/Documents/game-soul/game-soul-backend/target/debug/deps/libpest_generator-420e61cc2e615c23.rlib: /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/pest_generator-2.8.0/src/lib.rs /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/pest_generator-2.8.0/src/macros.rs /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/pest_generator-2.8.0/src/docs.rs /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/pest_generator-2.8.0/src/generator.rs /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/pest_generator-2.8.0/src/parse_derive.rs
+
+/Users/fatu/Documents/game-soul/game-soul-backend/target/debug/deps/pest_generator-420e61cc2e615c23.d: /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/pest_generator-2.8.0/src/lib.rs /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/pest_generator-2.8.0/src/macros.rs /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/pest_generator-2.8.0/src/docs.rs /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/pest_generator-2.8.0/src/generator.rs /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/pest_generator-2.8.0/src/parse_derive.rs
+
+/Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/pest_generator-2.8.0/src/lib.rs:
+/Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/pest_generator-2.8.0/src/macros.rs:
+/Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/pest_generator-2.8.0/src/docs.rs:
+/Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/pest_generator-2.8.0/src/generator.rs:
+/Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/pest_generator-2.8.0/src/parse_derive.rs:

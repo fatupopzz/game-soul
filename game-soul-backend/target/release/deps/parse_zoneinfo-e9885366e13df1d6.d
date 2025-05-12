@@ -1,0 +1,11 @@
+/Users/fatu/Documents/game-soul/game-soul-backend/target/release/deps/libparse_zoneinfo-e9885366e13df1d6.rmeta: /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/parse-zoneinfo-0.3.1/src/lib.rs /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/parse-zoneinfo-0.3.1/src/line.rs /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/parse-zoneinfo-0.3.1/src/structure.rs /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/parse-zoneinfo-0.3.1/src/table.rs /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/parse-zoneinfo-0.3.1/src/transitions.rs
+
+/Users/fatu/Documents/game-soul/game-soul-backend/target/release/deps/libparse_zoneinfo-e9885366e13df1d6.rlib: /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/parse-zoneinfo-0.3.1/src/lib.rs /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/parse-zoneinfo-0.3.1/src/line.rs /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/parse-zoneinfo-0.3.1/src/structure.rs /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/parse-zoneinfo-0.3.1/src/table.rs /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/parse-zoneinfo-0.3.1/src/transitions.rs
+
+/Users/fatu/Documents/game-soul/game-soul-backend/target/release/deps/parse_zoneinfo-e9885366e13df1d6.d: /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/parse-zoneinfo-0.3.1/src/lib.rs /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/parse-zoneinfo-0.3.1/src/line.rs /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/parse-zoneinfo-0.3.1/src/structure.rs /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/parse-zoneinfo-0.3.1/src/table.rs /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/parse-zoneinfo-0.3.1/src/transitions.rs
+
+/Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/parse-zoneinfo-0.3.1/src/lib.rs:
+/Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/parse-zoneinfo-0.3.1/src/line.rs:
+/Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/parse-zoneinfo-0.3.1/src/structure.rs:
+/Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/parse-zoneinfo-0.3.1/src/table.rs:
+/Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/parse-zoneinfo-0.3.1/src/transitions.rs:

@@ -1,0 +1,11 @@
+/Users/fatu/Documents/game-soul/game-soul-backend/target/release/deps/libtokio_rustls-cbb1d707f1d7c2d5.rmeta: /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tokio-rustls-0.26.2/src/lib.rs /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tokio-rustls-0.26.2/src/client.rs /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tokio-rustls-0.26.2/src/common/mod.rs /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tokio-rustls-0.26.2/src/common/handshake.rs /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tokio-rustls-0.26.2/src/server.rs
+
+/Users/fatu/Documents/game-soul/game-soul-backend/target/release/deps/libtokio_rustls-cbb1d707f1d7c2d5.rlib: /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tokio-rustls-0.26.2/src/lib.rs /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tokio-rustls-0.26.2/src/client.rs /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tokio-rustls-0.26.2/src/common/mod.rs /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tokio-rustls-0.26.2/src/common/handshake.rs /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tokio-rustls-0.26.2/src/server.rs
+
+/Users/fatu/Documents/game-soul/game-soul-backend/target/release/deps/tokio_rustls-cbb1d707f1d7c2d5.d: /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tokio-rustls-0.26.2/src/lib.rs /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tokio-rustls-0.26.2/src/client.rs /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tokio-rustls-0.26.2/src/common/mod.rs /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tokio-rustls-0.26.2/src/common/handshake.rs /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tokio-rustls-0.26.2/src/server.rs
+
+/Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tokio-rustls-0.26.2/src/lib.rs:
+/Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tokio-rustls-0.26.2/src/client.rs:
+/Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tokio-rustls-0.26.2/src/common/mod.rs:
+/Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tokio-rustls-0.26.2/src/common/handshake.rs:
+/Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tokio-rustls-0.26.2/src/server.rs:

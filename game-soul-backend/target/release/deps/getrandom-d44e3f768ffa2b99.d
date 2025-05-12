@@ -1,0 +1,11 @@
+/Users/fatu/Documents/game-soul/game-soul-backend/target/release/deps/libgetrandom-d44e3f768ffa2b99.rmeta: /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/getrandom-0.2.16/src/lib.rs /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/getrandom-0.2.16/src/error.rs /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/getrandom-0.2.16/src/util.rs /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/getrandom-0.2.16/src/util_libc.rs /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/getrandom-0.2.16/src/getentropy.rs
+
+/Users/fatu/Documents/game-soul/game-soul-backend/target/release/deps/libgetrandom-d44e3f768ffa2b99.rlib: /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/getrandom-0.2.16/src/lib.rs /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/getrandom-0.2.16/src/error.rs /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/getrandom-0.2.16/src/util.rs /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/getrandom-0.2.16/src/util_libc.rs /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/getrandom-0.2.16/src/getentropy.rs
+
+/Users/fatu/Documents/game-soul/game-soul-backend/target/release/deps/getrandom-d44e3f768ffa2b99.d: /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/getrandom-0.2.16/src/lib.rs /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/getrandom-0.2.16/src/error.rs /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/getrandom-0.2.16/src/util.rs /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/getrandom-0.2.16/src/util_libc.rs /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/getrandom-0.2.16/src/getentropy.rs
+
+/Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/getrandom-0.2.16/src/lib.rs:
+/Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/getrandom-0.2.16/src/error.rs:
+/Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/getrandom-0.2.16/src/util.rs:
+/Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/getrandom-0.2.16/src/util_libc.rs:
+/Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/getrandom-0.2.16/src/getentropy.rs:

@@ -19,6 +19,10 @@ pub fn configure(cfg: &mut web::ServiceConfig) {
                 
                 // Rutas de recomendación
                 .route("/recommendations", web::post().to(handlers::recommendation::get_recommendations))
+                
+                // Rutas de diagnóstico y reparación
+                .route("/diagnose", web::get().to(handlers::data_diagnosis::diagnose_neo4j_data))
+                .route("/repair", web::post().to(handlers::data_diagnosis::repair_neo4j_structure))
         )
         
         // Ruta de health check
