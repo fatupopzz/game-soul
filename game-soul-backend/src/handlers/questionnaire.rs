@@ -13,6 +13,7 @@ use crate::models::questionnaire::{
 };
 use crate::models::recommendation::RecommendationResponse;
 
+
 /// Obtener el cuestionario completo con las 5 preguntas
 pub async fn get_questionnaire() -> AppResult<HttpResponse> {
     info!("Solicitud de obtención del cuestionario");
@@ -30,9 +31,9 @@ pub async fn get_questionnaire() -> AppResult<HttpResponse> {
     let available_characteristics = crate::models::emotion::get_dealbreaker_characteristics();
     
     info!("Enviando cuestionario con {} preguntas, {} emociones y {} características", 
-          questions.len(), 
-          available_emotions.len(),
-          available_characteristics.len());
+        questions.len(), 
+        available_emotions.len(),
+        available_characteristics.len());
     
     // Crear la respuesta
     let response = QuestionnaireResponse {

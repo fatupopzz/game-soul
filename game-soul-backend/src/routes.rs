@@ -22,5 +22,5 @@ pub fn configure(cfg: &mut web::ServiceConfig) {
         )
         
         // Ruta de health check
-        .route("/health", web::get().to(|| async { "¡Game Soul API está funcionando correctamente!" }))
+        .route("/health", web::get().to(|| async { "¡Game Soul API está funcionando correctamente!" }));
 }

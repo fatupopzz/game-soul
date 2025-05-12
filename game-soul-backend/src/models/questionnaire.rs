@@ -1,5 +1,6 @@
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
+use validator::Validate;
 
 
 
@@ -89,17 +90,23 @@ pub struct QuestionnaireQuestion {
     pub options: Vec<QuestionOption>,
 }
 
-/// Solicitud de envío del cuestionario completado
+
+/// Respuesta del usuario a una pregunta del cuestionario
+/// Esta estructura se utiliza para validar las respuestas
+/// Solicitud de envío del cuestionario completad
+/// no se por que no funciona validate
+
 #[derive(Debug, Deserialize, Validate)]
 pub struct QuestionnaireSubmission {
     #[validate(length(min = 1, message = "Debe proporcionar un ID de usuario"))]
     pub user_id: String,
     
-    #[validate]
+    #[validate(length(min = 1, message = "Debe proporcionar respuestas"))]
     pub answers: HashMap<String, String>, // question_id -> option_id
     
     pub dealbreakers: Option<Vec<String>>,
 }
+
 
 /// Perfil emocional calculado del usuario
 #[derive(Debug, Serialize, Deserialize)]
