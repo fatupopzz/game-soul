@@ -1,0 +1,12 @@
+/Users/fatu/Documents/game-soul/game-soul-backend/target/debug/deps/libwriteable-24bb13632ca34144.rmeta: /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/writeable-0.6.1/src/lib.rs /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/writeable-0.6.1/src/cmp.rs /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/writeable-0.6.1/src/impls.rs /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/writeable-0.6.1/src/ops.rs /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/writeable-0.6.1/src/parts_write_adapter.rs /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/writeable-0.6.1/src/testing.rs /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/writeable-0.6.1/src/to_string_or_borrow.rs /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/writeable-0.6.1/src/try_writeable.rs
+
+/Users/fatu/Documents/game-soul/game-soul-backend/target/debug/deps/writeable-24bb13632ca34144.d: /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/writeable-0.6.1/src/lib.rs /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/writeable-0.6.1/src/cmp.rs /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/writeable-0.6.1/src/impls.rs /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/writeable-0.6.1/src/ops.rs /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/writeable-0.6.1/src/parts_write_adapter.rs /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/writeable-0.6.1/src/testing.rs /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/writeable-0.6.1/src/to_string_or_borrow.rs /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/writeable-0.6.1/src/try_writeable.rs
+
+/Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/writeable-0.6.1/src/lib.rs:
+/Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/writeable-0.6.1/src/cmp.rs:
+/Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/writeable-0.6.1/src/impls.rs:
+/Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/writeable-0.6.1/src/ops.rs:
+/Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/writeable-0.6.1/src/parts_write_adapter.rs:
+/Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/writeable-0.6.1/src/testing.rs:
+/Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/writeable-0.6.1/src/to_string_or_borrow.rs:
+/Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/writeable-0.6.1/src/try_writeable.rs:

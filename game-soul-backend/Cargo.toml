@@ -1,0 +1,76 @@
+[package]
+name = "game-soul-backend"
+version = "0.1.0"
+edition = "2021"
+authors = ["Fatu y todos los que colaboraron en el proyecto"]
+description = "Backend para el sistema de recomendaciones Game Soul"
+
+[dependencies]
+# Web framework - versiones compatibles
+actix-web = "4.3.1"
+actix-cors = "0.7.1"
+actix-rt = "2.8.0"
+actix-http = "3.3.1"
+
+# Serialización/Deserialización
+serde = { version = "1.0.164", features = ["derive"] }
+serde_json = "1.0.99"
+
+# Base de datos
+neo4rs = "0.8.0"
+
+# Configuración y variables de entorno
+dotenv = "0.15.0"
+config = "0.15.11"
+
+# Logging
+env_logger = "0.11.8"
+log = "0.4.19"
+tracing = "0.1.37"
+tracing-subscriber = { version = "0.3.17", features = ["env-filter"] }
+
+# Error handling
+thiserror = "2.0.12"
+anyhow = "1.0.71"
+
+# Async
+tokio = { version = "1.28.2", features = ["full"] }
+futures = "0.3.28"
+
+# Autenticación
+jsonwebtoken = "9.3.1"
+bcrypt = "0.17.0"
+
+# Validación
+validator = { version = "0.20.0", features = ["derive"] }
+
+# Utilidades
+chrono = { version = "0.4.26", features = ["serde"] }
+uuid = { version = "1.3.4", features = ["v4", "serde"] }
+rand = "0.9.1"
+url = "2.4.0"
+
+# Documentación de API
+utoipa = "5.3.1"
+utoipa-swagger-ui = "9.0.1"
+
+# Optimización de rendimiento
+dashmap = "6.1.0"
+parking_lot = "0.12.1"
+
+# Métricas y monitoreo
+prometheus = "0.14.0"
+metrics = "0.24.2"
+
+[dev-dependencies]
+reqwest = { version = "0.12.15", features = ["json"] }
+mockall = "0.13.1"
+tokio-test = "0.4.2"
+test-case = "3.1.0"
+fake = { version = "4.3.0", features = ["derive"] }
+assert_matches = "1.5.0"
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1
