@@ -22,7 +22,7 @@ pub async fn get_questionnaire() -> AppResult<HttpResponse> {
     let questions = create_questionnaire();
     
     // Obtener lista de emociones disponibles
-    let available_emotions = crate::models::emotion::get_available_emotions()
+    let available_emotions: Vec<String> = crate::models::emotion::get_available_emotions()
         .into_iter()
         .map(|e| e.tipo)
         .collect();

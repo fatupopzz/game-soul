@@ -17,7 +17,7 @@ pub async fn save_emotional_profile(
     let create_user_query = "MERGE (u:Usuario {id: $user_id}) RETURN u.id";
     db.execute(
         query(create_user_query)
-            .param("user_id", &profile.user_id)
+            .param("user_id", profile.user_id.as_str())
     ).await
     .context("Error al crear/verificar usuario")?;
     
