@@ -23,22 +23,3 @@ Cargo.lock
 # Archivos de logs
 *.log
 logs/
-
-# Directorios de dependencias
-node_modules/
-
-# Archivos compilados
-**/*.rs.bk
-*.pdb
-*.exe
-*.dll
-*.so
-*.dylib
-
-# Archivos específicos de sistema operativo
-.DS_Store
-Thumbs.db
-
-# Archivos temporales
-tmp/
-temp/

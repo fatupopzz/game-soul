@@ -11,6 +11,7 @@ use actix_web::{App, HttpServer, web};
 use dotenv::dotenv;
 use log::info;
 
+
 mod config;
 mod db;
 mod error;
@@ -20,7 +21,7 @@ use middleware as app_middleware;
 mod models;
 mod routes;
 mod services;
-mod utils;
+mod utils;  
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
