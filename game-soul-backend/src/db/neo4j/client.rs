@@ -1,5 +1,7 @@
-use anyhow::{Context, Result};
-use log::info;
+// src/db/neo4j/client.rs - Versión optimizada para conectar con Neo4j existente
+
+use anyhow::{Result, Context};
+use log::{info, error, debug};
 use neo4rs::{Graph, query};
 use std::env;
 use std::sync::Arc;
@@ -7,98 +9,112 @@ use std::sync::Arc;
 // Tipo para el pool de conexiones
 pub type DbPool = Arc<Graph>;
 
-// Crear un pool de conexiones a Neo4j
+// Crear un pool de conexiones a Neo4j con mejor manejo de errores
 pub async fn create_connection_pool() -> Result<DbPool> {
     let uri = env::var("NEO4J_URI").unwrap_or_else(|_| "bolt://localhost:7687".to_string());
     let username = env::var("NEO4J_USER").unwrap_or_else(|_| "neo4j".to_string());
     let password = env::var("NEO4J_PASSWORD").unwrap_or_else(|_| "password".to_string());
     
-    info!("Conectando a Neo4j: {}", uri);
+    info!("Intentando conectar a Neo4j: {}", uri);
     
-    let graph = Graph::new(uri, username, password)
-        .await
-        .context("Error al conectar con Neo4j")?;
+    // Intentamos conectar
+    match Graph::new(uri.clone(), username.clone(), password.clone()).await {
+        Ok(graph) => {
+            // Verificar la conexión comprobando directamente los juegos
+            let test_query = "MATCH (j:Juego) RETURN count(j) as count";
+            match graph.execute(query(test_query)).await {
+                Ok(mut result) => {
+                    if let Ok(Some(row)) = result.next().await {
+                        if let Ok(count) = row.get::<i64>("count") {
+                            info!("✅ Conexión a Neo4j exitosa. Encontrados {} juegos", count);
+                            return Ok(Arc::new(graph));
+                        }
+                    }
+                    error!("No se pudo leer correctamente el conteo de juegos");
+                    Err(anyhow::anyhow!("Error al verificar juegos en Neo4j"))
+                },
+                Err(e) => {
+                    error!("Error al ejecutar consulta de prueba: {}", e);
+                    Err(anyhow::anyhow!("Error al ejecutar consulta de prueba: {}", e))
+                }
+            }
+        },
+        Err(e) => {
+            error!("Error al conectar con Neo4j ({}): {}", uri, e);
+            Err(anyhow::anyhow!("Error al conectar con Neo4j: {}", e))
+        }
+    }
+}
+
+// Función para verificar la estructura de la base de datos existente
+pub async fn verify_database_structure(db: &DbPool) -> Result<()> {
+    debug!("Verificando estructura existente en Neo4j");
     
-    // Verificar la conexión con una consulta simple
-    let mut result = graph.execute(query("RETURN 1 AS n")).await
-        .context("Error al verificar la conexión a Neo4j")?;
-    
-    if let Ok(Some(_)) = result.next().await {
-        info!("Conexión a Neo4j verificada correctamente");
-    } else {
-        return Err(anyhow::anyhow!("No se pudo verificar la conexión a Neo4j"));
+    // Verificar que existan emociones
+    let emotions_query = "MATCH (e:Emocion) RETURN count(e) as count";
+    let mut result = db.execute(query(emotions_query)).await?;
+    if let Ok(Some(row)) = result.next().await {
+        if let Ok(count) = row.get::<i64>("count") {
+            info!("Encontradas {} emociones en Neo4j", count);
+            if count == 0 {
+                return Err(anyhow::anyhow!("No se encontraron nodos de emoción en Neo4j"));
+            }
+        }
     }
     
-    Ok(Arc::new(graph))
-}
-
-// Función para verificar si existen los nodos de emociones y crearlos si no
-pub async fn ensure_emotion_nodes(db: &DbPool) -> Result<()> {
-    let emotion_types = vec![
-        "alegre", "relajante", "melancólico", "exploración", 
-        "desafiante", "contemplativo", "social", "competitivo", "creativo",
-    ];
-    
-    for emotion_type in emotion_types {
-        let query_text = "MERGE (:Emocion {tipo: $tipo})";
-        db.execute(query(query_text).param("tipo", emotion_type))
-            .await
-            .context(format!("Error al crear el nodo de emoción: {}", emotion_type))?;
+    // Verificar que existan juegos
+    let games_query = "MATCH (j:Juego) RETURN count(j) as count";
+    let mut result = db.execute(query(games_query)).await?;
+    if let Ok(Some(row)) = result.next().await {
+        if let Ok(count) = row.get::<i64>("count") {
+            info!("Encontrados {} juegos en Neo4j", count);
+            if count == 0 {
+                return Err(anyhow::anyhow!("No se encontraron nodos de juego en Neo4j"));
+            }
+        }
     }
     
-    info!("✅ Nodos de emociones verificados/creados correctamente");
-    Ok(())
-}
-
-// Función para verificar si existen los nodos de rangos de duración y crearlos si no
-pub async fn ensure_duration_range_nodes(db: &DbPool) -> Result<()> {
-    let query_text = r#"
-    MERGE (:RangoDuracion {nombre: "muy_corto", min: 0, max: 30, descripcion: "Menos de 30 minutos"})
-    MERGE (:RangoDuracion {nombre: "corto", min: 30, max: 60, descripcion: "Entre 30 minutos y 1 hora"})
-    MERGE (:RangoDuracion {nombre: "medio", min: 60, max: 180, descripcion: "Entre 1 y 3 horas"})
-    MERGE (:RangoDuracion {nombre: "largo", min: 180, max: 480, descripcion: "Entre 3 y 8 horas"})
-    MERGE (:RangoDuracion {nombre: "muy_largo", min: 480, max: 9999, descripcion: "Más de 8 horas"})
-    "#;
-    
-    db.execute(query(query_text))
-        .await
-        .context("Error al crear nodos de rangos de duración")?;
-    
-    info!("✅ Nodos de rangos de duración verificados/creados correctamente");
-    Ok(())
-}
-
-// Función para verificar si existen las características y crearlas si no
-pub async fn ensure_characteristic_nodes(db: &DbPool) -> Result<()> {
-    let characteristics = vec![
-        "social", "exploración", "desafiante", "historia", "puzzles",
-        "coleccionable", "difícil", "combate", "atmósfera", "inmersivo",
-        "decisiones", "artístico", "trabajo en equipo", "habilidades",
-        "estrategia", "rápido", "personajes", "estilizado"
-    ];
-    
-    for characteristic in characteristics {
-        let query_text = "MERGE (:Caracteristica {nombre: $nombre})";
-        db.execute(query(query_text).param("nombre", characteristic))
-            .await
-            .context(format!("Error al crear el nodo de característica: {}", characteristic))?;
+    // Verificar que existan características
+    let characteristics_query = "MATCH (c:Caracteristica) RETURN count(c) as count";
+    let mut result = db.execute(query(characteristics_query)).await?;
+    if let Ok(Some(row)) = result.next().await {
+        if let Ok(count) = row.get::<i64>("count") {
+            info!("Encontradas {} características en Neo4j", count);
+        }
     }
     
-    info!("✅ Nodos de características verificados/creados correctamente");
+    // Verificar que las relaciones entre juegos y emociones existan
+    let resonance_query = "MATCH (:Juego)-[r:RESUENA_CON]->(:Emocion) RETURN count(r) as count";
+    let mut result = db.execute(query(resonance_query)).await?;
+    if let Ok(Some(row)) = result.next().await {
+        if let Ok(count) = row.get::<i64>("count") {
+            info!("Encontradas {} relaciones de resonancia en Neo4j", count);
+            if count == 0 {
+                return Err(anyhow::anyhow!("No se encontraron relaciones de resonancia en Neo4j"));
+            }
+        }
+    }
+    
+    info!("✅ Estructura de base de datos verificada correctamente");
     Ok(())
 }
 
-// Función de inicialización que verifica toda la estructura básica
-pub async fn initialize_database(db: &DbPool) -> Result<()> {
-    // Verificar/crear nodos de emociones
-    ensure_emotion_nodes(db).await?;
+// Función para obtener todos los nodos de un tipo específico
+pub async fn get_all_nodes_of_type(db: &DbPool, label: &str, property: &str) -> Result<Vec<String>> {
+    let query_text = format!("MATCH (n:{}) RETURN n.{} AS value ORDER BY n.{}", label, property, property);
+    debug!("Consultando nodos de tipo {}: {}", label, query_text);
     
-    // Verificar/crear nodos de rangos de duración
-    ensure_duration_range_nodes(db).await?;
+    let mut result = db.execute(query(&query_text)).await
+        .context(format!("Error al consultar nodos de tipo {}", label))?;
     
-    // Verificar/crear nodos de características
-    ensure_characteristic_nodes(db).await?;
+    let mut values = Vec::new();
     
-    info!("✅ Base de datos inicializada correctamente");
-    Ok(())
+    while let Ok(Some(row)) = result.next().await {
+        if let Ok(value) = row.get::<String>("value") {
+            values.push(value);
+        }
+    }
+    
+    info!("Encontrados {} nodos de tipo {}", values.len(), label);
+    Ok(values)
 }

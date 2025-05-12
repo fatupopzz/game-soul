@@ -1,15 +1,8 @@
-//--------------------------------------------------
-// GAME SOUL - PUNTO DE ENTRADA PRINCIPAL
-//
-// Este archivo es el punto de entrada de la aplicación.
-// Inicializa el servidor, la conexión a la base de datos,
-// y configura los componentes esenciales del sistema.
-//--------------------------------------------------
-
+// src/main.rs - Versión mejorada para verificar la conexión
 
 use actix_web::{App, HttpServer, web, middleware::Logger};
 use dotenv::dotenv;
-use log::info;
+use log::{info, error};
 
 mod config;
 mod db;
@@ -20,7 +13,7 @@ use middleware as app_middleware;
 mod models;
 mod routes;
 mod services;
-mod utils;  
+mod utils;
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
@@ -34,23 +27,34 @@ async fn main() -> std::io::Result<()> {
     let config = config::AppConfig::from_env();
     let server_address = format!("{}:{}", config.host, config.port);
     
-    info!("Iniciando conexión a Neo4j...");
+    info!("🔄 Iniciando conexión a Neo4j...");
     
-    // Inicializar conexión a Neo4j
+    // Conectar a Neo4j con mejor manejo de errores
     let db_pool = match db::neo4j::client::create_connection_pool().await {
         Ok(pool) => {
             info!("✅ Conexión exitosa a Neo4j");
             pool
         },
         Err(e) => {
-            panic!("❌ Error al conectar con Neo4j: {}", e);
+            error!("❌ Error al conectar con Neo4j: {}", e);
+            error!("💡 Verifica las credenciales y la URL en las variables de entorno");
+            error!("    NEO4J_URI: {}", std::env::var("NEO4J_URI").unwrap_or_else(|_| "No definido".to_string()));
+            error!("    NEO4J_USER: {}", std::env::var("NEO4J_USER").unwrap_or_else(|_| "No definido".to_string()));
+            error!("    NEO4J_PASSWORD: [oculto]");
+            panic!("No se pudo conectar con Neo4j. Verifica las credenciales y la URL.");
         }
     };
     
-    // Inicializar la base de datos (crear nodos esenciales si no existen)
-    if let Err(e) = db::neo4j::client::initialize_database(&db_pool).await {
-        panic!("❌ Error al inicializar la base de datos: {}", e);
-    }
+    // Verificar la estructura de la base de datos
+    match db::neo4j::client::verify_database_structure(&db_pool).await {
+        Ok(_) => {
+            info!("✅ Estructura de base de datos verificada correctamente");
+        },
+        Err(e) => {
+            error!("⚠️ Advertencia: Problema con la estructura de Neo4j: {}", e);
+            error!("   El servidor continuará, pero es posible que algunas consultas fallen");
+        }
+    };
     
     info!("🚀 Iniciando servidor en http://{}", server_address);
     
@@ -61,8 +65,6 @@ async fn main() -> std::io::Result<()> {
             .wrap(Logger::default())
             // Middleware para CORS
             .wrap(app_middleware::cors::cors())
-            // Middleware para métricas
-            .wrap(app_middleware::metrics::metrics_middleware())
             // Datos compartidos en la aplicación
             .app_data(web::Data::new(db_pool.clone()))
             .app_data(web::Data::new(config.clone()))

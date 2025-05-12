@@ -1,9 +1,0 @@
-/Users/fatu/Documents/game-soul/game-soul-backend/target/debug/deps/libsystem_configuration-f17a2d723d721469.rmeta: /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/system-configuration-0.6.1/src/lib.rs /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/system-configuration-0.6.1/src/dynamic_store.rs /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/system-configuration-0.6.1/src/network_configuration.rs /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/system-configuration-0.6.1/src/network_reachability.rs /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/system-configuration-0.6.1/src/preferences.rs
-
-/Users/fatu/Documents/game-soul/game-soul-backend/target/debug/deps/system_configuration-f17a2d723d721469.d: /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/system-configuration-0.6.1/src/lib.rs /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/system-configuration-0.6.1/src/dynamic_store.rs /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/system-configuration-0.6.1/src/network_configuration.rs /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/system-configuration-0.6.1/src/network_reachability.rs /Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/system-configuration-0.6.1/src/preferences.rs
-
-/Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/system-configuration-0.6.1/src/lib.rs:
-/Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/system-configuration-0.6.1/src/dynamic_store.rs:
-/Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/system-configuration-0.6.1/src/network_configuration.rs:
-/Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/system-configuration-0.6.1/src/network_reachability.rs:
-/Users/fatu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/system-configuration-0.6.1/src/preferences.rs:

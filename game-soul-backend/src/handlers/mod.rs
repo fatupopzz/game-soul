@@ -6,4 +6,5 @@
 //--------------------------------------------------
 pub mod recommendation;
 pub mod questionnaire;
-pub mod reference;pub mod data_diagnosis;
+pub mod reference;
+pub mod diagnostics;

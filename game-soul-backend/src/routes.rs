@@ -1,9 +1,4 @@
-//---------------------------------------
-// Este archivo contiene la configuración de las rutas de la API
-// y la lógica para manejar las solicitudes HTTP.
-// Incluye rutas para obtener el cuestionario, enviar respuestas
-// y obtener recomendaciones basadas en el perfil emocional del usuario
-//---------------------------------------
+// src/routes.rs - Corregido
 
 use actix_web::web;
 use crate::handlers;
@@ -16,13 +11,15 @@ pub fn configure(cfg: &mut web::ServiceConfig) {
                 // Rutas de cuestionario
                 .route("/questionnaire", web::get().to(handlers::questionnaire::get_questionnaire))
                 .route("/questionnaire/submit", web::post().to(handlers::questionnaire::submit_questionnaire))
-                
+               // En la función configure de src/routes.rs, dentro del scope /api
+                .route("/neo4j-questionnaire", web::post().to(handlers::diagnostics::neo4j_questionnaire)) 
                 // Rutas de recomendación
                 .route("/recommendations", web::post().to(handlers::recommendation::get_recommendations))
                 
-                // Rutas de diagnóstico y reparación
-                .route("/diagnose", web::get().to(handlers::data_diagnosis::diagnose_neo4j_data))
-                .route("/repair", web::post().to(handlers::data_diagnosis::repair_neo4j_structure))
+                // Rutas de diagnóstico
+                .route("/diagnose", web::get().to(handlers::diagnostics::diagnose_neo4j))
+                .route("/test-recommendation", web::get().to(handlers::diagnostics::test_recommendation_query))
+                .route("/diagnose-neo4j", web::get().to(handlers::diagnostics::diagnose_neo4j))
         )
         
         // Ruta de health check
