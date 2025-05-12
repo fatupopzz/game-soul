@@ -1,1 +1,0 @@
-fn(actix_web::web::Data<Arc<Graph>>, Json<{type error}>) -> impl futures::Future<Output = Result<HttpResponse, AppError>> {submit_questionnaire}

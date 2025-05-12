@@ -204,7 +204,7 @@ pub async fn submit_questionnaire(
 
 /// Obtener el historial de respuestas del cuestionario de un usuario
 pub async fn get_questionnaire_history(
-    db: web::Data<DbPool>,
+    _db: web::Data<DbPool>,
     user_id: web::Path<String>,
 ) -> AppResult<HttpResponse> {
     let user_id = user_id.into_inner();

@@ -10,7 +10,7 @@
 use actix_web::{App, HttpServer, web};
 use dotenv::dotenv;
 use log::info;
-
+use actix_web::middleware::Logger;
 
 mod config;
 mod db;
