@@ -1,4 +1,11 @@
-// src/db/neo4j/queries/recommendations.rs - Versión optimizada para tu estructura existente
+//---------------------------------------
+//Este archivo contiene las consultas para obtener recomendaciones de juegos
+// basadas en el estado emocional del usuario y sus preferencias.
+// También incluye una consulta de diagnóstico para verificar la conexión
+// y la integridad de los datos en la base de datos Neo4j.
+// Además, se proporciona una consulta alternativa más simple
+// para depurar problemas de conexión o datos.
+//-----------------------------------------
 
 use anyhow::{Context, Result};
 use neo4rs::query;
@@ -7,7 +14,7 @@ use log::{info, debug, error};
 use crate::db::neo4j::client::DbPool;
 use crate::models::recommendation::GameRecommendation;
 
-/// Obtener recomendaciones basadas en estado emocional
+/// Obtener recomendaciones basadas en estado emocional esto si funciona hehe 
 pub async fn get_recommendations(
     db: &DbPool,
     emotion_type: &str,
@@ -16,7 +23,7 @@ pub async fn get_recommendations(
     info!("Buscando recomendaciones para emoción: {}", emotion_type);
     debug!("Dealbreakers: {:?}", dealbreakers);
     
-    // Consulta adaptada para trabajar con tu estructura existente
+    // Consulta adaptada para trabajar con dealbreakers y caracteristicas
     let query_text = r#"
     // Buscar juegos que resuenan con la emoción proporcionada
     MATCH (j:Juego)-[r:RESUENA_CON]->(e:Emocion {tipo: $emotion_type})
@@ -49,7 +56,7 @@ pub async fn get_recommendations(
     
     debug!("Ejecutando consulta de recomendaciones: {}", query_text);
     
-    // Ejecutar la consulta
+    // Ejecutar la consulta con parámetros
     let mut result = db.execute(
         query(query_text)
             .param("emotion_type", emotion_type)
@@ -58,7 +65,7 @@ pub async fn get_recommendations(
     
     let mut recommendations = Vec::new();
     
-    // Procesar resultados
+    // Procesar resultados de la consulta, tipo los ids de los juegos
     while let Ok(Some(row)) = result.next().await {
         debug!("Procesando fila de resultados");
         
@@ -95,7 +102,7 @@ pub async fn get_recommendations(
             }
         };
         
-        // Extraer arrays con manejo de errores
+        // Extraer arrays con manejo de errores por si acaso no funciona neo4j
         let caracteristicas = match row.get::<Vec<String>>("caracteristicas") {
             Ok(val) => val,
             Err(e) => {
@@ -135,7 +142,7 @@ pub async fn get_recommendations(
     
     info!("Encontradas {} recomendaciones para {}", recommendations.len(), emotion_type);
     
-    // Si no encontramos recomendaciones, intenta una consulta más simple
+    // Si no encontramos recomendaciones, intenta una consulta más simple que son boiler
     if recommendations.is_empty() {
         info!("No se encontraron recomendaciones, intentando consulta alternativa");
         recommendations = get_recommendations_alternative(db, emotion_type).await?;
@@ -144,7 +151,7 @@ pub async fn get_recommendations(
     Ok(recommendations)
 }
 
-/// Consulta alternativa más simple (para depuración)
+/// Consulta alternativa más simple (para depuración) por si no funciona la anterior
 pub async fn get_recommendations_alternative(
     db: &DbPool,
     emotion_type: &str,
@@ -191,6 +198,7 @@ pub async fn get_recommendations_alternative(
 }
 
 /// Consulta de diagnóstico para verificar problemas de conexión
+/// se verifica usando curl localhost:3001/diagnose o algo asi 
 pub async fn diagnose_database(db: &DbPool) -> Result<String> {
     let diagnose_query = r#"
     // Contar juegos

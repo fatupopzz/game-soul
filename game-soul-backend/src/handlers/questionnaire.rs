@@ -1,4 +1,6 @@
-// src/handlers/questionnaire.rs - Versión mejorada para usar la estructura existente
+//quiero hacer esto mas corto pero no se como
+//aaaaa
+//--------------------------------------------
 
 use actix_web::{web, HttpResponse};
 use log::{info, error, debug};

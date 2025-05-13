@@ -1,4 +1,4 @@
-// src/handlers/recommendation.rs
+//necesito quitar los fallbacks por que no se de donde agarra los datos, recommendations o questionnaire
 
 use actix_web::{web, HttpResponse};
 use log::{error, info, debug};
