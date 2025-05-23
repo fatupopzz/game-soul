@@ -1,197 +1,238 @@
-# Game Soul - Documentación de Base de Datos
+#  Game Soul - Sistema de Recomendaciones Emocional
 
-Esta carpeta contiene todos los scripts y consultas necesarios para configurar y utilizar la base de datos Neo4j para el sistema de recomendaciones emocional Game Soul.
+*Un sistema inteligente que recomienda videojuegos basándose en tu estado emocional actual*
 
-## Estructura de Archivos
+##  Nuestro Equipo
+- **Ismalej** - Desarrollo Backend y Base de Datos
+- **Adrina** - Desarrollo Frontend y UX  
+- **Fatima** - Integración y Testing
+
+---
+
+##  ¿Qué es Game Soul?
+
+Game Soul es nuestra solución para el problema de "no sé qué jugar hoy". Utilizamos un grafo de conocimiento en Neo4j para mapear las relaciones entre videojuegos y emociones, creando recomendaciones personalizadas que realmente conecten con cómo te sientes.
+
+### Que hace?
+- **Resonancia emocional**: Los juegos están conectados a emociones específicas con diferentes intensidades
+- **Aprendizaje adaptativo**: El sistema mejora sus recomendaciones basándose en tu feedback
+- **Exploración inteligente**: Previene la fatiga sugiriendo géneros que no has jugado recientemente
+
+---
+
+## Arquitectura del Proyecto
 
 ```
-database/
-├── data/                  # Datos de inicialización
-│   └── initial-data.cypher  # Script para crear nodos y relaciones iniciales
-│
-├── queries/               # Consultas para diferentes funcionalidades
-│   ├── exploration-query.cypher    # Consulta para recomendaciones exploratorias
-│   ├── resonance-query.cypher      # Consulta principal de resonancia emocional
-│   └── update-resonance.cypher     # Actualización de resonancia basada en feedback
-│
-├── schema/                # Definición del esquema
-│   └── constraints.cypher   # Restricciones e índices de la base de datos
-│
-├── setup/                 # Scripts de configuración adicionales
-│   └── schema.cypher        # Esquema base con emociones predefinidas
-│
-├── setup.sh               # Script de configuración para Unix/Linux/macOS
-├── setup.ps1              # Script de configuración para Windows (PowerShell)
-└── README.md              # Este archivo
+Game Soul/
+├── backend/                 # API REST con Spring Boot
+│   ├── src/main/java/      # Código Java
+│   ├── Dockerfile          # Contenedor del backend
+│   └── pom.xml             # Dependencias Maven
+├── database/               # Scripts y consultas Neo4j
+│   ├── queries/           # Consultas principales del sistema
+│   ├── schema/            # Definición de constraints
+│   └── data/              # Datos iniciales
+├── frontend/              # Interfaz de usuario (React/Svelte)
+└── docker-compose.yml     # Orquestación de servicios
 ```
 
-## Modelo de Datos
+---
 
-El sistema utiliza un grafo con los siguientes nodos y relaciones:
+##  Configuración Inicial
 
-### Nodos
-- **Usuario**: Representa a un usuario del sistema
-  - Propiedades: `id`, `nombre`, `estado`
-  
-- **Juego**: Representa un videojuego en el catálogo
-  - Propiedades: `id`, `nombre`, `descripcion`, `duracion_minima`, `duracion_maxima`, `genero`, `caracteristicas`
-  
-- **Emocion**: Representa un estado emocional o experiencia de juego
-  - Propiedades: `tipo` (por ejemplo: "relajante", "desafiante", "social")
+### Paso 1: Prerrequisitos
+Asegúrense de tener instalado:
+- **Java 17+** (para el backend)
+- **Maven 3.6+** (para compilar)
+- **Docker Desktop** (la forma más fácil de usar Neo4j)
+- **Node.js 18+** (para el frontend)
 
-### Relaciones
-- **RESUENA_CON**: Conecta un juego con una emoción
-  - Propiedades: `intensidad` (0.0 a 1.0)
-  
-- **ESTADO_EMOCIONAL**: Conecta un usuario con una emoción actual
-  - Propiedades: `fecha`
-  
-- **HA_JUGADO**: Historial de juegos jugados por un usuario
-  - Propiedades: `fecha`, `duracion`, `satisfaccion` (0 a 10)
-
-## Configuración de la Base de Datos
-
-### Requisitos previos
-- Neo4j instalado (versión 4.4 o superior)
-- Cypher-shell disponible en tu PATH (o ruta definida)
-
-### Usando Docker (Recomendado)
-La forma más fácil de configurar Neo4j es usando Docker:
-
-1. Asegúrate de tener Docker y Docker Compose instalados
-2. Desde la raíz del proyecto, ejecuta:
-   ```
-   docker-compose up -d
-   ```
-3. Esto iniciará Neo4j en el puerto 7474 (Browser) y 7687 (Bolt)
-
-### Configuración manual
-
-#### En sistemas Unix/Linux/macOS:
+### Paso 2: Levantar Neo4j
 ```bash
-cd database
-chmod +x setup.sh
-./setup.sh
+# En la raíz del proyecto
+docker-compose up -d neo4j
 ```
 
-#### En Windows (PowerShell):
-```powershell
-cd database
-.\setup.ps1
+Esto iniciará Neo4j en:
+- Browser: http://localhost:7474
+- Usuario: `neo4j`
+- Contraseña: `password`
+
+### Paso 3: Configurar la Base de Datos
+1. Abre Neo4j Browser (http://localhost:7474)
+2. Conéctate con las credenciales de arriba
+3. Copia y pega el contenido de `database/schema/constraints.cypher`
+4. Ejecuta la consulta (Ctrl+Enter)
+5. Copia y pega el contenido de `database/data/initial-data.cypher`
+6. Ejecuta la consulta
+
+### Paso 4: Levantar el Backend
+```bash
+cd backend
+mvn clean install
+mvn spring-boot:run
 ```
 
-#### En Windows (CMD):
-```cmd
-cd database
-setup.bat
-```
+El backend estará disponible en: http://localhost:8080/api
 
-#### Configuración manual sin scripts:
-1. Accede a Neo4j Browser (http://localhost:7474)
-2. Inicia sesión con las credenciales por defecto (neo4j/password)
-3. Ejecuta secuencialmente:
-   - El contenido de `schema/constraints.cypher`
-   - El contenido de `data/initial-data.cypher`
+### Paso 5: Probar que Todo Funciona
+Visita: http://localhost:8080/api/test/hello
 
-## 📊 Consultas principales
+Deberías ver un mensaje de confirmación del backend.
 
-### Recomendación por Resonancia Emocional
-Esta consulta principal (`queries/resonance-query.cypher`) recomienda juegos que resuenan con el estado emocional actual del usuario:
+---
 
-```cypher
-// Para ejecutar:
-MATCH (u:Usuario)-[e:ESTADO_EMOCIONAL]->(estado:Emocion)
-MATCH (j:Juego)-[r:RESUENA_CON]->(estado)
-WHERE j.duracion_minima <= $tiempo_disponible
-  AND NOT any(caracteristica IN j.caracteristicas 
-      WHERE caracteristica IN $dealbreakers)
-WITH j, 
-     collect(r.intensidad) AS resonancias,
-     collect(estado.tipo) AS emociones_coincidentes
-WITH j, 
-     reduce(s = 0.0, x IN resonancias | s + x) AS puntuacion_total,
-     emociones_coincidentes
-ORDER BY puntuacion_total DESC
-LIMIT 3
-RETURN j.nombre AS juego, 
-       j.descripcion AS descripcion,
-       puntuacion_total AS resonancia,
-       emociones_coincidentes
-```
+##  Funcionalidades Principales
 
-### Recomendación para Exploración
-Esta consulta (`queries/exploration-query.cypher`) recomienda juegos para prevenir la fatiga y fomentar exploración:
+### 1. Recomendación por Resonancia Emocional
+El corazón del sistema. Conecta el estado emocional del usuario con juegos que "resuenan" con esa emoción.
 
-```cypher
-// Para ejecutar:
-MATCH (u:Usuario)-[h:HA_JUGADO]->(j:Juego)
-WHERE h.fecha >= date() - duration('P30D')
-WITH u, collect(j.genero) AS generos_recientes
-MATCH (nuevo:Juego)
-WHERE none(g IN nuevo.genero WHERE g IN generos_recientes)
-  AND nuevo.duracion_minima <= $tiempo_disponible
-WITH nuevo, rand() AS r
-ORDER BY r
-LIMIT 3
-RETURN nuevo.nombre AS juego,
-       nuevo.descripcion AS descripcion,
-       "exploración" AS tipo_recomendacion
-```
+**Archivo**: `database/queries/resonance-query.cypher`
 
-## Actualización de la Base de Datos
+### 2. Exploración Inteligente
+Previene la fatiga sugiriendo juegos de géneros que no has jugado recientemente.
 
-### Añadir un nuevo juego
-```cypher
-MERGE (j:Juego {id: "game_id"})
-ON CREATE SET
-  j.nombre = "Nombre del Juego",
-  j.descripcion = "Descripción del juego",
-  j.duracion_minima = 30,
-  j.duracion_maxima = 120,
-  j.genero = "género",
-  j.caracteristicas = ["caract1", "caract2", "caract3"];
+**Archivo**: `database/queries/exploration-query.cypher`
 
-// Conectar con emociones
-MATCH (j:Juego {id: "game_id"}), (e:Emocion {tipo: "tipo_emocion"})
-CREATE (j)-[:RESUENA_CON {intensidad: 0.7}]->(e);
-```
+### 3. Aprendizaje por Feedback
+Mejora las recomendaciones basándose en qué tan satisfecho quedaste con un juego.
 
-### Actualizar resonancia basada en feedback
-```cypher
-// Ejemplo de uso:
-MATCH (u:Usuario)-[r:RESUENA_CON]->(j:Juego)
-WHERE u.id = "user_id" AND j.nombre = "Nombre del Juego"
-SET r.intensidad = r.intensidad + 0.1,
-    r.ultima_actualizacion = datetime()
-RETURN r.intensidad as nueva_intensidad
-```
+**Archivo**: `database/queries/update-resonance.cypher`
 
-## Búsqueda y Exploración
+---
 
-Para explorar la base de datos visualmente:
-1. Accede a Neo4j Browser: http://localhost:7474
-2. Usa consultas como:
+##  Tareas Comunes de Desarrollo
+
+### Agregar un Nuevo Juego
+1. Abre Neo4j Browser
+2. Usa el script `database/admin/add-game.cypher`
+3. Proporciona los parámetros necesarios:
    ```cypher
-   // Ver todos los juegos
-   MATCH (j:Juego) RETURN j
-   
-   // Ver relaciones entre juegos y emociones
-   MATCH (j:Juego)-[r:RESUENA_CON]->(e:Emocion) RETURN j, r, e
-   
-   // Ver usuarios y sus estados emocionales
-   MATCH (u:Usuario)-[r:ESTADO_EMOCIONAL]->(e:Emocion) RETURN u, r, e
+   // Ejemplo
+   :param id => "zelda-botw"
+   :param nombre => "The Legend of Zelda: Breath of the Wild"
+   :param descripcion => "Aventura épica en mundo abierto"
+   :param duracion_minima => 60
+   :param generos => ["aventura", "acción", "mundo abierto"]
+   :param caracteristicas => ["exploración", "libertad", "contemplativo"]
+   :param emociones => {exploración: 0.9, contemplativo: 0.8, aventurero: 0.85}
    ```
 
-## Notas Importantes
+### Ver los Datos en Neo4j
+```cypher
+// Ver todos los juegos
+MATCH (j:Juego) RETURN j
 
-1. **Backups**: Siempre realiza copias de seguridad antes de modificar el esquema
-2. **Índices**: Los índices están configurados para optimizar consultas frecuentes
-3. **Actualización de esquema**: Si necesitas añadir nuevas restricciones, hazlo en `schema/constraints.cypher`
+// Ver relaciones entre juegos y emociones
+MATCH (j:Juego)-[r:RESUENA_CON]->(e:Emocion) 
+RETURN j.nombre, e.tipo, r.intensidad
 
-## Contribuir
+// Ver el grafo completo (¡cuidado, puede ser mucho!)
+MATCH (n)-[r]->(m) RETURN n, r, m LIMIT 100
+```
 
-1. Mantén la estructura de carpetas
-2. Documenta nuevas consultas
-3. Usa MERGE en lugar de CREATE para evitar duplicados
-4. Sigue las convenciones de nomenclatura existentes
+### Probar las Consultas Principales
+```cypher
+// Recomendación emocional (simula usuario relajado con 60 min disponibles)
+:param usuario_id => "user1"
+:param tiempo_disponible => 60
+:param dealbreakers => ["violento", "competitivo"]
 
+// Luego ejecuta el contenido de resonance-query.cypher
+```
+
+---
+
+##  Solución de Problemas Comunes
+
+### "No puedo conectar a Neo4j"
+- Verifica que Docker esté corriendo: `docker ps`
+- Reinicia el contenedor: `docker-compose restart neo4j`
+- Espera un momento, Neo4j tarda en inicializar
+
+### "El backend no encuentra Neo4j"
+- Verifica la configuración en `backend/src/main/resources/application.yml`
+- Asegúrate de que Neo4j esté en el puerto 7687
+
+### "Las consultas no devuelven resultados"
+- Verifica que los datos iniciales se hayan cargado correctamente
+- Ejecuta: `MATCH (n) RETURN count(n)` para ver si hay nodos
+
+### "Error de compilación en Maven"
+- Verifica la versión de Java: `java -version`
+- Limpia el cache: `mvn clean`
+
+---
+
+##  Estructura de la Base de Datos
+
+### Nodos Principales
+- **Usuario**: Representa a cada usuario del sistema
+- **Juego**: Catálogo de videojuegos con sus propiedades
+- **Emocion**: Estados emocionales base del sistema
+- **Genero**: Categorías de juegos (RPG, Acción, etc.)
+- **Caracteristica**: Atributos específicos (relajante, desafiante, etc.)
+
+### Relaciones Clave
+- **RESUENA_CON**: Un juego resuena con una emoción (tiene intensidad)
+- **ESTADO_EMOCIONAL**: El estado actual de un usuario
+- **HA_JUGADO**: Historial de juegos de un usuario
+- **TIENE_GENERO/CARACTERISTICA**: Propiedades de los juegos
+
+---
+
+##  Frontend - Próximos Pasos
+
+El frontend está configurado para ser desarrollado en React o Svelte (¡tu elección!). 
+
+### Para React:
+```bash
+cd frontend
+npm create react-app . --template typescript
+npm install axios tailwindcss
+```
+
+### Para Svelte:
+```bash
+cd frontend
+npm create svelte@latest .
+npm install axios
+```
+
+### APIs Disponibles
+- `GET /api/test/hello` - Verificar que el backend funciona
+- Próximamente: endpoints para recomendaciones, usuarios, etc.
+
+---
+
+
+##  Cómo Colaborar
+
+1. **Actualiza tu rama local**:
+   ```bash
+   git pull origin main
+   ```
+
+2. **Crea tu rama de feature**:
+   ```bash
+   git checkout -b feature/nueva-funcionalidad
+   ```
+
+3. **Haz commits descriptivos**:
+   ```bash
+   git commit -m "feat: agregar endpoint para buscar juegos por género"
+   ```
+
+4. **Sube tu rama y crea PR**:
+   ```bash
+   git push origin feature/nueva-funcionalidad
+   ```
+
+
+##  ¿Necesitas Ayuda?
+
+- **Problemas con Neo4j**: Revisa la sección de troubleshooting o consulta la documentación oficial
+- **Dudas de Spring Boot**: La documentación está en el directorio `backend/docs/`
+- **Issues del proyecto**: Usa el sistema de issues de Git para reportar bugs
+
+---
