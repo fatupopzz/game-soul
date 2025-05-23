@@ -149,6 +149,27 @@ pub async fn submit_questionnaire(
             info!("No se encontró emoción dominante, usando 'relajante'");
             "relajante".to_string()
         });
+
+    //  Crear y guardar el perfil emocional del usuario
+    info!("🔄 Creando perfil emocional para usuario: {}", req.user_id);
+    let profile = crate::models::questionnaire::EmotionalProfile {
+        user_id: req.user_id.clone(),
+        emotions: emotional_profile.clone(),
+        dominant_emotion: dominant_emotion.clone(),
+        time_available: time_range.clone(),
+    };
+    
+    // Guardar el usuario y su perfil emocional en Neo4j
+    info!("Guardando usuario y perfil emocional en Neo4j...");
+    match crate::db::neo4j::queries::user::save_emotional_profile(&db, &profile).await {
+        Ok(_) => {
+            info!("✅ Usuario {} guardado exitosamente en Neo4j", req.user_id);
+        },
+        Err(e) => {
+            error!("❌ Error al guardar usuario en Neo4j: {}", e);
+            // No interrumpimos el flujo, pero registramos el error
+        }
+    }
     
     // Obtener dealbreakers
     let dealbreakers = req.dealbreakers.clone().unwrap_or_else(Vec::new);
@@ -187,7 +208,7 @@ pub async fn submit_questionnaire(
     );
     
     info!("Enviando respuesta con {} recomendaciones", 
-          response.recomendaciones_emocionales.len());
+        response.recomendaciones_emocionales.len());
     
     Ok(HttpResponse::Ok().json(response))
 }

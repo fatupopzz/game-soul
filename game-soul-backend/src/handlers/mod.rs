@@ -8,3 +8,4 @@ pub mod recommendation;
 pub mod questionnaire;
 pub mod reference;
 pub mod diagnostics;
+pub mod user;  // ⬅️ AGREGAR ESTA LÍNEA

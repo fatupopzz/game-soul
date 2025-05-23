@@ -199,7 +199,7 @@ pub async fn diagnose_games(db: web::Data<DbPool>) -> AppResult<HttpResponse> {
     }
 }
 
-/// Función para generar recomendaciones manuales de respaldo
+
 /// Función para generar recomendaciones manuales de respaldo
 fn generate_fallback_recommendations(emotion_type: &str) -> Vec<crate::models::recommendation::GameRecommendation> {
     // Recomendaciones por tipo de emoción con IDs correctos según Neo4j

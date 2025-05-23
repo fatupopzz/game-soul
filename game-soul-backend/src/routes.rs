@@ -1,4 +1,4 @@
-// src/routes.rs - Corregido
+//se agregaron las nuevas rutas de usuario al archivo de rutas
 
 use actix_web::web;
 use crate::handlers;
@@ -11,10 +11,14 @@ pub fn configure(cfg: &mut web::ServiceConfig) {
                 // Rutas de cuestionario
                 .route("/questionnaire", web::get().to(handlers::questionnaire::get_questionnaire))
                 .route("/questionnaire/submit", web::post().to(handlers::questionnaire::submit_questionnaire))
-               // En la función configure de src/routes.rs, dentro del scope /api
                 .route("/neo4j-questionnaire", web::post().to(handlers::diagnostics::neo4j_questionnaire)) 
+                
                 // Rutas de recomendación
                 .route("/recommendations", web::post().to(handlers::recommendation::get_recommendations))
+                
+                // ✨ NUEVAS RUTAS DE USUARIO (agregar estas dos líneas)
+                .route("/user/{user_id}", web::get().to(handlers::user::get_user_info))
+                .route("/user/{user_id}/profile", web::get().to(handlers::user::get_user_profile))
                 
                 // Rutas de diagnóstico
                 .route("/diagnose", web::get().to(handlers::diagnostics::diagnose_neo4j))
