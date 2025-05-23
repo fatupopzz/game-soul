@@ -1,2 +1,0 @@
-// Añadir dentro de la función configure, en el alcance "api":
-.route("/test-simple", web::get().to(handlers::recommendation::test_simple_recommendations))

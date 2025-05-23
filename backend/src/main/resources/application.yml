@@ -1,0 +1,31 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /api
+
+spring:
+  application:
+    name: game-soul-backend
+  
+  # CORS Configuration
+  web:
+    cors:
+      allowed-origins: "http://localhost:3000"
+      allowed-methods: "*"
+      allowed-headers: "*"
+      allow-credentials: true
+
+# Neo4j Configuration
+neo4j:
+  uri: bolt://localhost:7687
+  username: neo4j
+  password: password
+  database: neo4j
+
+# Logging
+logging:
+  level:
+    com.gamesoul: DEBUG
+    org.neo4j.driver: INFO
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
