@@ -18,6 +18,41 @@ public class RecommendationService {
     @Autowired
     private Driver neo4jDriver;
     
+    public List<GameRecommendation> getRecommendationsForUser(String userId) {
+        List<GameRecommendation> recommendations = new ArrayList<>();
+        
+        String query = """
+            MATCH (u:Usuario {id: $userId})-[:ESTADO_EMOCIONAL]->(e:Emocion)
+            MATCH (j:Juego)-[r:RESUENA_CON]->(e)
+            RETURN j.id as id, j.nombre as name, j.descripcion as description, 
+                   r.intensidad as matchScore,
+                   e.tipo as emotion
+            ORDER BY r.intensidad DESC
+            LIMIT 5
+            """;
+        
+        try (Session session = neo4jDriver.session()) {
+            Result result = session.run(query, Map.of("userId", userId));
+            
+            while (result.hasNext()) {
+                Record record = result.next();
+                GameRecommendation rec = new GameRecommendation(
+                    record.get("id").asString(),
+                    record.get("name").asString(),
+                    record.get("description").asString(),
+                    record.get("matchScore").asDouble()
+                );
+                
+                String emotion = record.get("emotion").asString();
+                rec.setReasons(List.of("Resuena con tu emoción: " + emotion));
+                
+                recommendations.add(rec);
+            }
+        }
+        
+        return recommendations;
+    }
+    
     public List<GameRecommendation> getRecommendationsForEmotion(String emotion) {
         List<GameRecommendation> recommendations = new ArrayList<>();
         
@@ -40,6 +75,8 @@ public class RecommendationService {
                     record.get("description").asString(),
                     record.get("matchScore").asDouble()
                 );
+                
+                rec.setReasons(List.of("Perfecto para cuando te sientes: " + emotion));
                 recommendations.add(rec);
             }
         }
