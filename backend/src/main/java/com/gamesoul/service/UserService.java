@@ -1,14 +1,13 @@
 package com.gamesoul.service;
 
-import com.gamesoul.model.dto.UserProfile;
+import java.util.Map;
+
 import org.neo4j.driver.Driver;
-import org.neo4j.driver.Record;
-import org.neo4j.driver.Result;
 import org.neo4j.driver.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Map;
+import com.gamesoul.model.dto.UserProfile;
 
 @Service
 public class UserService {
@@ -85,6 +84,33 @@ public class UserService {
                 "liked", liked,
                 "rating", rating != null ? rating : 3
             ));
+        }
+    }
+
+    public void processSocialFeedback(String userId, String gameId, boolean liked) {
+        String updateFeedbackQuery = """
+            MATCH (u:Usuario {id: $userId})
+            MATCH (j:Juego {id: $gameId})
+            MERGE (u)-[r:HA_JUGADO]->(j)
+            SET r.liked = $liked,
+                r.fecha = datetime(),
+                r.peso = CASE WHEN $liked THEN 1.0 ELSE -0.5 END
+            """;
+        
+        String findSimilarUsersQuery = """
+            MATCH (u1:Usuario {id: $userId})-[r1:HA_JUGADO]->(j:Juego)<-[r2:HA_JUGADO]-(u2:Usuario)
+            WHERE u1 <> u2 AND r1.liked = true AND r2.liked = true
+            WITH u1, u2, count(j) as juegos_comunes
+            WHERE juegos_comunes >= 2
+            MERGE (u1)-[s:SIMILAR_A]->(u2)
+            SET s.similitud = juegos_comunes * 0.2,
+                s.juegos_comunes = juegos_comunes,
+                s.ultima_actualizacion = datetime()
+            """;
+    
+        try (Session session = neo4jDriver.session()) {
+            session.run(updateFeedbackQuery, Map.of("userId", userId, "gameId", gameId, "liked", liked));
+            session.run(findSimilarUsersQuery, Map.of("userId", userId));
         }
     }
 }

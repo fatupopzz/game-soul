@@ -1,15 +1,24 @@
 package com.gamesoul.controller;
 
-import com.gamesoul.model.dto.*;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.gamesoul.model.dto.GameRecommendation;
+import com.gamesoul.model.dto.QuestionnaireRequest;
+import com.gamesoul.model.dto.UserProfile;
 import com.gamesoul.service.EmotionAnalysisService;
 import com.gamesoul.service.RecommendationService;
 import com.gamesoul.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("")
@@ -81,24 +90,40 @@ public class RecommendationController {
     
     // Guardar feedback
     @PostMapping("/feedback")
-    public ResponseEntity<?> saveFeedback(@RequestBody Map<String, Object> feedback) {
-        try {
-            String userId = (String) feedback.get("userId");
-            String gameId = (String) feedback.get("gameId");
-            Boolean liked = (Boolean) feedback.get("liked");
-            Integer rating = (Integer) feedback.get("rating");
-            
-            userService.saveFeedback(userId, gameId, liked, rating);
-            
-            return ResponseEntity.ok(Map.of(
-                "status", "success",
-                "message", "Feedback guardado correctamente"
-            ));
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(Map.of(
-                "status", "error",
-                "message", "Error guardando feedback: " + e.getMessage()
-            ));
-        }
+public ResponseEntity<?> saveFeedback(@RequestBody Map<String, Object> feedback) {
+    try {
+        String userId = (String) feedback.get("userId");
+        String gameId = (String) feedback.get("gameId");
+        Boolean liked = (Boolean) feedback.get("liked");
+        Integer rating = (Integer) feedback.get("rating");
+        
+        // Tu código existente
+        userService.saveFeedback(userId, gameId, liked, rating);
+        
+        // NUEVO: Procesar feedback social
+        userService.processSocialFeedback(userId, gameId, liked);
+        
+        return ResponseEntity.ok(Map.of(
+            "status", "success",
+            "message", "Feedback guardado y sistema social actualizado"
+        ));
+    } catch (Exception e) {
+        return ResponseEntity.badRequest().body(Map.of(
+            "status", "error",  
+            "message", "Error: " + e.getMessage()
+        ));
     }
+}
+
+    // Nuevo endpoint para recomendaciones mixtas (emocional + social)
+@GetMapping("/recommendations/mixed/{userId}")
+public ResponseEntity<List<GameRecommendation>> getMixedRecommendations(@PathVariable String userId) {
+    try {
+        List<GameRecommendation> recommendations = 
+            recommendationService.getMixedRecommendations(userId);
+        return ResponseEntity.ok(recommendations);
+    } catch (Exception e) {
+        return ResponseEntity.notFound().build();
+    }
+}
 }
