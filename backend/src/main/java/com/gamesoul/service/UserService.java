@@ -1,3 +1,10 @@
+//------------------------------------
+// Este se usará para manejar la lógica de negocio relacionada con los usuarios.
+// Aquí se guardarán los perfiles de usuario, feedback de juegos y se procesará la retroalimentación social.
+// También se crearán usuarios "seed" para mejorar las recomendaciones iniciales.
+//-------------------------------------------
+
+
 package com.gamesoul.service;
 
 import java.util.Map;
@@ -121,7 +128,7 @@ public class UserService {
             
             if (result1.hasNext()) {
                 var record = result1.next();
-                System.out.println("✅ Feedback guardado: " + record.get("usuario_id").asString() + 
+                System.out.println("Feedback guardado: " + record.get("usuario_id").asString() + 
                                  " -> " + record.get("juego_id").asString() + " = " + liked);
             }
             
@@ -135,14 +142,14 @@ public class UserService {
             }
             
         } catch (Exception e) {
-            System.out.println("❌ Error guardando feedback: " + e.getMessage());
+            System.out.println(" Error guardando feedback: " + e.getMessage());
             throw e;
         }
     }
 
 
 public void processSocialFeedback(String userId, String gameId, boolean liked) {
-    System.out.println("🔗 Procesando feedback social para: " + userId + " -> " + gameId + " = " + liked);
+    System.out.println("Procesando feedback social para: " + userId + " -> " + gameId + " = " + liked);
     
     // 1. PRIMERO: Crear similitudes basadas en gustos comunes
     String createSimilaritiesQuery = """
@@ -184,7 +191,7 @@ public void processSocialFeedback(String userId, String gameId, boolean liked) {
         while (result1.hasNext()) {
             var record = result1.next();
             similitudesNaturales++;
-            System.out.println("🤝 Similitud natural: " + record.get("usuario1").asString() + 
+            System.out.println("Similitud natural: " + record.get("usuario1").asString() + 
                              " <-> " + record.get("usuario2").asString() + 
                              " (" + record.get("juegos_comunes").asInt() + " juegos)");
         }
@@ -193,7 +200,7 @@ public void processSocialFeedback(String userId, String gameId, boolean liked) {
         
         // Si no hay suficientes similitudes naturales, crear con usuarios seed
         if (similitudesNaturales == 0) {
-            System.out.println("🌱 No hay similitudes naturales, creando con usuarios seed...");
+            System.out.println("No hay similitudes naturales, creando con usuarios seed...");
             
             var result2 = session.run(createSeedSimilaritiesQuery, Map.of("userId", userId, "gameId", gameId));
             
@@ -201,22 +208,22 @@ public void processSocialFeedback(String userId, String gameId, boolean liked) {
             while (result2.hasNext()) {
                 var record = result2.next();
                 similitudesSeed++;
-                System.out.println("🌱 Similitud seed: " + record.get("usuario").asString() + 
+                System.out.println("Similitud seed: " + record.get("usuario").asString() + 
                                  " <-> " + record.get("usuario_seed").asString());
             }
             
-            System.out.println("🌱 Similitudes seed creadas: " + similitudesSeed);
+            System.out.println("Similitudes seed creadas: " + similitudesSeed);
         }
         
     } catch (Exception e) {
-        System.out.println("❌ Error procesando feedback social: " + e.getMessage());
+        System.out.println(" Error procesando feedback social: " + e.getMessage());
         e.printStackTrace();
     }
 }
 
 // AGREGAR método para crear usuarios seed automáticamente
 public void ensureSeedUsers() {
-    System.out.println("🌱 Verificando usuarios seed...");
+    System.out.println("Verificando usuarios seed...");
     
     String createSeedUsersQuery = """
         // Crear usuario seed si no existe
@@ -279,9 +286,9 @@ public void ensureSeedUsers() {
     try (Session session = neo4jDriver.session()) {
         session.run(createSeedUsersQuery);
         session.run(createSeed2Query);
-        System.out.println("✅ Usuarios seed verificados/creados");
+        System.out.println("Usuarios seed verificados/creados");
     } catch (Exception e) {
-        System.out.println("❌ Error creando usuarios seed: " + e.getMessage());
+        System.out.println("Error creando usuarios seed: " + e.getMessage());
     }
 }
 }

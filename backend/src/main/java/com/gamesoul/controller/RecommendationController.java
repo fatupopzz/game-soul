@@ -90,14 +90,14 @@ public class RecommendationController {
     
     @PostMapping("/feedback")
 public ResponseEntity<?> saveFeedback(@RequestBody Map<String, Object> feedback) {
-    System.out.println("🔥 FEEDBACK RECIBIDO: " + feedback);
+    System.out.println("FEEDBACK RECIBIDO: " + feedback);
     
     try {
         String userId = (String) feedback.get("userId");
         String gameId = (String) feedback.get("gameId");
         Boolean liked = (Boolean) feedback.get("liked");
         
-        System.out.println("📊 Procesando: usuario=" + userId + ", juego=" + gameId + ", like=" + liked);
+        System.out.println("Procesando: usuario=" + userId + ", juego=" + gameId + ", like=" + liked);
         
         // NUEVO: Asegurar que existen usuarios seed antes de procesar feedback
         userService.ensureSeedUsers();
@@ -108,7 +108,7 @@ public ResponseEntity<?> saveFeedback(@RequestBody Map<String, Object> feedback)
         // Procesar feedback social (ahora con usuarios seed)
         userService.processSocialFeedback(userId, gameId, liked);
         
-        System.out.println("✅ Feedback procesado correctamente");
+        System.out.println("Feedback procesado correctamente");
         
         return ResponseEntity.ok(Map.of(
             "status", "success",
@@ -118,7 +118,7 @@ public ResponseEntity<?> saveFeedback(@RequestBody Map<String, Object> feedback)
             "liked", liked
         ));
     } catch (Exception e) {
-        System.out.println("❌ ERROR: " + e.getMessage());
+        System.out.println(" ERROR: " + e.getMessage());
         e.printStackTrace();
         return ResponseEntity.badRequest().body(Map.of(
             "status", "error",  
@@ -131,28 +131,28 @@ public ResponseEntity<?> saveFeedback(@RequestBody Map<String, Object> feedback)
     // Nuevo endpoint para recomendaciones mixtas
     @GetMapping("/recommendations/mixed/{userId}")
     public ResponseEntity<List<GameRecommendation>> getMixedRecommendations(@PathVariable String userId) {
-        System.out.println("🔀 Solicitud de recomendaciones mixtas para: " + userId);
+        System.out.println("Solicitud de recomendaciones mixtas para: " + userId);
         try {
             List<GameRecommendation> recommendations = 
                 recommendationService.getMixedRecommendations(userId);
-            System.out.println("✅ Devolviendo " + recommendations.size() + " recomendaciones mixtas");
+            System.out.println(" Devolviendo " + recommendations.size() + " recomendaciones mixtas");
             return ResponseEntity.ok(recommendations);
         } catch (Exception e) {
-            System.out.println("❌ Error obteniendo recomendaciones mixtas: " + e.getMessage());
+            System.out.println("Error obteniendo recomendaciones mixtas: " + e.getMessage());
             e.printStackTrace();
             return ResponseEntity.notFound().build();
         }
     }
     @GetMapping("/recommendations/social/{userId}")
 public ResponseEntity<List<GameRecommendation>> getSocialRecommendations(@PathVariable String userId) {
-    System.out.println("👥 Solicitud de recomendaciones sociales para: " + userId);
+    System.out.println("Solicitud de recomendaciones sociales para: " + userId);
     try {
         List<GameRecommendation> recommendations = 
             recommendationService.getSocialRecommendations(userId);
-        System.out.println("✅ Devolviendo " + recommendations.size() + " recomendaciones sociales");
+        System.out.println("Devolviendo " + recommendations.size() + " recomendaciones sociales");
         return ResponseEntity.ok(recommendations);
     } catch (Exception e) {
-        System.out.println("❌ Error obteniendo recomendaciones sociales: " + e.getMessage());
+        System.out.println("Error obteniendo recomendaciones sociales: " + e.getMessage());
         e.printStackTrace();
         return ResponseEntity.notFound().build();
     }
