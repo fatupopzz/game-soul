@@ -350,4 +350,4 @@ Para detener todos los servicios:
 
 ---
 
-**Nota**: Este README está enfocado en hacer funcionar el sistema. Para documentación técnica detallada sobre el algoritmo y arquitectura, consultar los archivos en `
+
