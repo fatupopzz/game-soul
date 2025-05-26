@@ -50,6 +50,8 @@ docker-compose up -d neo4j
 
 # Verificar que esté corriendo (debe aparecer neo4j)
 docker ps
+
+#Inicial cypher tiene la mayoría de datos pero es mejor este tutorial porq es todo de un solo
 ```
 
 **IMPORTANTE**: Esperar 60 segundos para que Neo4j termine de inicializarse.
