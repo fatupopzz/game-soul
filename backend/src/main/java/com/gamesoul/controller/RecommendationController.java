@@ -112,6 +112,12 @@ public class RecommendationController {
         }
     }
     
+    /**
+     * Guarda el feedback del usuario respecto a un videojuego recomendado
+     * 
+     * @param feedback Mapa que conteiene userID, gameID, liked (booelan) y rating (entero)
+     * @return Mensaje de éxito o error
+     */
     @PostMapping("/feedback")
 public ResponseEntity<?> saveFeedback(@RequestBody Map<String, Object> feedback) {
     System.out.println("FEEDBACK RECIBIDO: " + feedback);
@@ -152,7 +158,13 @@ public ResponseEntity<?> saveFeedback(@RequestBody Map<String, Object> feedback)
 }
     
     
-    // Nuevo endpoint para recomendaciones mixtas
+    /**
+     * Obtiene recoemndaciones mixtas y para un usuario, combinando diversos factores como perfil emocional 
+     * retroalimentación previa, y datos sociales
+     * 
+     * @param userId ID del usuario
+     * @return Lista de recomendaciones mixtas 
+     */
     @GetMapping("/recommendations/mixed/{userId}")
     public ResponseEntity<List<GameRecommendation>> getMixedRecommendations(@PathVariable String userId) {
         System.out.println("Solicitud de recomendaciones mixtas para: " + userId);
@@ -167,6 +179,14 @@ public ResponseEntity<?> saveFeedback(@RequestBody Map<String, Object> feedback)
             return ResponseEntity.notFound().build();
         }
     }
+
+    /**
+     * Obtiene recomendaciones sociales para un usuario, basdas en comportamientos  de otros usuarios
+     * con perfiles o gustos similares
+     * 
+     * @param userId ID del usuario
+     * @return Lista de recomendaciones basadas en datos sociales
+     */
     @GetMapping("/recommendations/social/{userId}")
 public ResponseEntity<List<GameRecommendation>> getSocialRecommendations(@PathVariable String userId) {
     System.out.println("Solicitud de recomendaciones sociales para: " + userId);
