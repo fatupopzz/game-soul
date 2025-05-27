@@ -11,9 +11,14 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Controlador que gestiona las operaciones relacionadas con recomendaciones de videojuegos
+ * basadas en el análisis emocional del usuario
+ */
+
 @RestController
 @RequestMapping("")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://localhost:3000") //Permite peticiones desde el frontend local
 public class RecommendationController {
     
     @Autowired
@@ -25,7 +30,13 @@ public class RecommendationController {
     @Autowired
     private EmotionAnalysisService emotionAnalysisService;
     
-    // Procesar cuestionario y crear perfil
+    /**
+     * Procesa las respuestas del cuestionario emocional del usuario 
+     * crea un perfil basado en dischas respuestas y genera recomendaciones iniciales. 
+     * 
+     * @param request Objeto que contiene las respuestas y el ID del usuario
+     * @return ResponseEntity con perfil generado y recomendaciones iniciales 
+     */
     @PostMapping("/questionnaire")
     public ResponseEntity<?> processQuestionnaire(@RequestBody QuestionnaireRequest request) {
         try {
@@ -33,13 +44,14 @@ public class RecommendationController {
             UserProfile profile = emotionAnalysisService.analyzeQuestionnaire(request.getAnswers());
             profile.setUserId(request.getUserId());
             
-            // 2. Guardar usuario en Neo4j
+            // 2. Guardar el perfil del usuario en la base de datos (Neo4j)
             userService.saveUserProfile(request.getUserId(), profile);
             
-            // 3. Obtener recomendaciones iniciales
+            // 3. Obtener recomendaciones de videojuegos basadas en el perfil generado
             List<GameRecommendation> recommendations = 
                 recommendationService.getRecommendationsForUser(request.getUserId());
             
+            // 4. Responder con el perfil y las recomendaciones
             return ResponseEntity.ok(Map.of(
                 "status", "success",
                 "message", "Cuestionario procesado correctamente",
@@ -48,6 +60,7 @@ public class RecommendationController {
             ));
             
         } catch (Exception e) {
+            //Manejo de errores
             return ResponseEntity.badRequest().body(Map.of(
                 "status", "error",
                 "message", "Error procesando cuestionario: " + e.getMessage()
@@ -55,7 +68,12 @@ public class RecommendationController {
         }
     }
     
-    // Obtener recomendaciones para un usuario
+    /**
+     * Obtiene recomendaciones de videojuegos para un usuario específico
+     * 
+     * @param userId del uusuario
+     * @return Lista de recomendaciones personalizadas
+     */
     @GetMapping("/recommendations/{userId}")
     public ResponseEntity<List<GameRecommendation>> getRecommendations(@PathVariable String userId) {
         try {
@@ -63,11 +81,17 @@ public class RecommendationController {
                 recommendationService.getRecommendationsForUser(userId);
             return ResponseEntity.ok(recommendations);
         } catch (Exception e) {
+            // Retorna 404 si no se encuentran recomendaciones 
             return ResponseEntity.notFound().build();
         }
     }
     
-    // Obtener recomendaciones por emoción directa
+    /**
+     * Obtiene recomendaciones basadas en una emoción específica. 
+     * 
+     * @param emotion Nombre de la emoción (ej. "feliz", "triste", etc.)
+     * @return Lista de juegos recoemndados para esa emoción
+     */
     @GetMapping("/recommendations/emotion/{emotion}")
     public ResponseEntity<List<GameRecommendation>> getRecommendationsByEmotion(@PathVariable String emotion) {
         try {
