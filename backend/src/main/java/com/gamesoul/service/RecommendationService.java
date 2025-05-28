@@ -14,6 +14,10 @@ import org.springframework.stereotype.Service;
 
 import com.gamesoul.model.dto.GameRecommendation;
 
+/**
+ * Servicio encargado de genrar recomendciones de juegos para los usuarios 
+ * en base a distintos criterios como emociones y preferencias de usuarios similares.
+ */
 @Service
 public class RecommendationService {
     
@@ -21,6 +25,12 @@ public class RecommendationService {
     private Driver neo4jDriver;
     
     // MÉTODO EXISTENTE - recomendaciones emocionales
+    /**
+     * Genera una lsita de juegos recomendados en base al estado emocional del usuario. 
+     * 
+     * @param userId ID del usuaio al que se le generarían las recomendaciones.
+     * @return Lista de recomendaciones emocionales (máximo 5).
+     */
     public List<GameRecommendation> getRecommendationsForUser(String userId) {
         List<GameRecommendation> recommendations = new ArrayList<>();
         
@@ -57,6 +67,12 @@ public class RecommendationService {
     }
     
     // MÉTODO EXISTENTE - recomendaciones por emoción
+    /**
+     * Genera una lista de juegos recomendados en base a un tipo de emoción específico.
+     * 
+     * @param emotion Tipo ed emoción (ej. "felicidad", "tristeza").
+     * @return Lista de recomendaciones por emoción (máximo 5).
+     */
     public List<GameRecommendation> getRecommendationsForEmotion(String emotion) {
         List<GameRecommendation> recommendations = new ArrayList<>();
         
@@ -89,6 +105,13 @@ public class RecommendationService {
     }
 
     // NUEVO MÉTODO - AGREGAR AQUÍ
+    /**
+     * Genera una lista de recomendaciones basadas en juegos que han sido jugados y gustados por usuarios similares, 
+     * pero que el usuario actual no ha jugado
+     * 
+     * @param userId ID del usuario para el que se generarán recomendaciones sociales.
+     * @return Lista de reocmendaciones sociales (máximo 5).
+     */
     public List<GameRecommendation> getSocialRecommendations(String userId) {
         System.out.println("👥 Buscando recomendaciones sociales para: " + userId);
         
@@ -142,6 +165,13 @@ public class RecommendationService {
     }
 
     // MÉTODO MIXTO - AGREGAR TAMBIÉN
+    /**
+     * Combina las recomendaciones emocionales y sociales en una sola lista, ordenadas por puntaje, 
+     * y devuelve las 5 mejores recomendaciones. 
+     * 
+     * @param userId ID del usuario para el que se generarán recomendaciones mixtas. 
+     * @return Lista combinada de recomendaciones emocionales y sociales. 
+     */
     public List<GameRecommendation> getMixedRecommendations(String userId) {
         System.out.println("🔀 Obteniendo recomendaciones mixtas para: " + userId);
         
