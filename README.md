@@ -98,18 +98,6 @@ MERGE (e9:Emocion {tipo: "creativo"});
 En Neo4j Browser, copiar y pegar este código:
 
 ```cypher
-// Crear juegos con sus propiedades emocionales
-CREATE (j1:Juego {id: "stardew-valley", nombre: "Stardew Valley", descripcion: "Simulador de granja relajante con elementos sociales"});
-CREATE (j2:Juego {id: "dark-souls", nombre: "Dark Souls", descripcion: "RPG extremadamente desafiante"});
-CREATE (j3:Juego {id: "minecraft", nombre: "Minecraft", descripcion: "Juego de construcción y exploración creativo"});
-CREATE (j4:Juego {id: "among-us", nombre: "Among Us", descripcion: "Juego social de deducción"});
-CREATE (j5:Juego {id: "journey", nombre: "Journey", descripcion: "Experiencia contemplativa y artística"});
-CREATE (j6:Juego {id: "animal-crossing", nombre: "Animal Crossing: New Horizons", descripcion: "Simulador de vida social relajante"});
-CREATE (j7:Juego {id: "elden-ring", nombre: "Elden Ring", descripcion: "RPG de mundo abierto desafiante"});
-CREATE (j8:Juego {id: "fall-guys", nombre: "Fall Guys", descripcion: "Juego competitivo divertido y colorido"});
-CREATE (j9:Juego {id: "satisfactory", nombre: "Satisfactory", descripcion: "Juego de construcción y automatización"});
-CREATE (j10:Juego {id: "cuphead", nombre: "Cuphead", descripcion: "Plataformas extremadamente desafiante con arte único"});
-
 // Conectar juegos con emociones
 MATCH (j1:Juego {id: "stardew-valley"}), (e:Emocion {tipo: "relajante"}) CREATE (j1)-[:RESUENA_CON {intensidad: 0.9}]->(e);
 MATCH (j1:Juego {id: "stardew-valley"}), (e:Emocion {tipo: "social"}) CREATE (j1)-[:RESUENA_CON {intensidad: 0.7}]->(e);
